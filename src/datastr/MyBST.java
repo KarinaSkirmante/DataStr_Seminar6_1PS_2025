@@ -128,6 +128,56 @@ public class MyBST<Ttype> {
 		
 	}
 	
+	public boolean search(Ttype searchElement) throws Exception
+	{
+		if(isEmpty())
+		{
+			throw new Exception("BST ir tukšs, līdz ar to nav iespējams meklēt elementus");
+		}
+		
+		if(searchElement == null)
+		{
+			throw new Exception("Padotais elements nedrīkst būt kā null");
+		}
+		
+		return searchHelp(root, searchElement);
+	}
 	
 	
+	private boolean searchHelp(MyNode<Ttype> currentNode, Ttype searchElement)
+	{
+		//pārbaudam, vai currentNode elements sakrīt ar melkēto
+		if(currentNode.getElement().equals(searchElement))
+		{
+			return true;
+		}//veikt meklēšanu tālāk pa kreiso vai labo pusi
+		else
+		{
+			//jāturpina meklēšana pa labo pusi
+			if( ((Comparable)searchElement).compareTo(currentNode.getElement()) == 1 )
+			{
+				//ja labais bērns eksistē, tad turpinām pa labo pusi
+				if(currentNode.getRightChildNode() != null)
+				{
+					//return jālieto tad, ja rekursīva funkcija nav void
+					return searchHelp(currentNode.getRightChildNode(), searchElement);
+				}
+			}
+			//jāturpina meklēšana pa kreiso pusi
+			else if( ((Comparable)searchElement).compareTo(currentNode.getElement()) == -1 )
+			{
+				if(currentNode.getLeftChildNode() != null)
+				{
+					return searchHelp(currentNode.getLeftChildNode(), searchElement);
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	
+	
+	//izveidot search funkciju, kas isEmpty pārbaude
+	//izsaucam search helper funkciju, saakot no root
 }
