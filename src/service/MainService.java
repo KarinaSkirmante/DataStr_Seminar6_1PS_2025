@@ -13,7 +13,13 @@ public class MainService {
 			myBST.add(20);
 			myBST.add(25);
 			myBST.add(30);
+			System.out.println("---------------------------PIEVIENOŠANA------------------");
 			myBST.print();
+			
+			System.out.println("---------------------------MEKLĒŠANA------------------");
+			System.out.println("25? ->" + myBST.search(25));//true
+			System.out.println("53? ->" + myBST.search(53));//true
+			System.out.println("100? ->" + myBST.search(100));//false
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
