@@ -177,7 +177,5 @@ public class MyBST<Ttype> {
 	}
 
 	
-	
-	//izveidot search funkciju, kas isEmpty pārbaude
-	//izsaucam search helper funkciju, saakot no root
+	//TODO uztaisīt remove un removeHelp funkcijas
 }
