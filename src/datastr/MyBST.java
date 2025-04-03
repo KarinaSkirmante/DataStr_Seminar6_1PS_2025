@@ -93,6 +93,41 @@ public class MyBST<Ttype> {
  		}
 	}
 	
+	public void print() throws Exception{
+		if(isEmpty())
+		{
+			throw new Exception("BST ir tukšs, līdz ar to nav iespējams izprintēt elementus");
+		}
+		
+		printHelp(root);
+		
+	}
+	
+	private void printHelp(MyNode<Ttype> currentNode) {
+	
+		System.out.println("P ->" + currentNode.getElement());
+		
+		
+		//pārbaudam, vai eksistē kreisais bērns
+		if(currentNode.getLeftChildNode() != null)
+		{
+			System.out.println("Kreisais bērns: " 
+					+ currentNode.getLeftChildNode().getElement()
+					+ "(" + currentNode.getElement() + ")");
+			printHelp(currentNode.getLeftChildNode());
+		}
+		
+		//pārbaudām, vai eksistē labais bērns
+		if(currentNode.getRightChildNode() != null)
+		{
+			System.out.println("Labais bērns: " 
+					+ currentNode.getRightChildNode().getElement()
+					+ "(" + currentNode.getElement() + ")");
+			printHelp(currentNode.getRightChildNode());
+		}
+		
+	}
+	
 	
 	
 }
