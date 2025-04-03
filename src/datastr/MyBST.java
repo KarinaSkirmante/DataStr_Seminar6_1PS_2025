@@ -113,7 +113,7 @@ public class MyBST<Ttype> {
 		{
 			System.out.println("Kreisais bērns: " 
 					+ currentNode.getLeftChildNode().getElement()
-					+ "(" + currentNode.getElement() + ")");
+					+ " (" + currentNode.getElement() + ")");
 			printHelp(currentNode.getLeftChildNode());
 		}
 		
@@ -122,7 +122,7 @@ public class MyBST<Ttype> {
 		{
 			System.out.println("Labais bērns: " 
 					+ currentNode.getRightChildNode().getElement()
-					+ "(" + currentNode.getElement() + ")");
+					+ " (" + currentNode.getElement() + ")");
 			printHelp(currentNode.getRightChildNode());
 		}
 		
