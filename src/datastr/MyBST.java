@@ -177,5 +177,113 @@ public class MyBST<Ttype> {
 	}
 
 	
-	//TODO uztaisīt remove un removeHelp funkcijas
+	// delete
+	// -----------------------------SĀKAS PIEVIENOTAIS KODA FRAGMENTS--------------------------
+
+		public void delete(Ttype element) throws Exception {
+			if (isEmpty()) {
+				throw new Exception("BST is empty and it is not possible to delete element");
+			}
+
+			if (!search(element)) // ja nebūs atrasts elements, ko grib dzest
+			{
+				throw new Exception("Element doesn't exists in BST and it is not possible to delete it");
+			}
+
+			deleteHelper(element, root);
+
+		}
+
+		private void deleteHelper(Ttype element, MyNode<Ttype> currentNode) {
+			// TODO samazinār coutner, pie atrastā elementa
+			// ja sakritīs, tad dzēsīsim
+			if (element.equals(currentNode.getElement())) {
+				// ja currentNode mezgls ir kā lapa
+				if (currentNode.getLeftChildNode() == null && currentNode.getRightChildNode() == null) {
+					MyNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+
+					// jānoņem saite uz kreiso bērnu
+					if (parentOfCurrentNode.getLeftChildNode().getElement().equals(element)) {
+						parentOfCurrentNode.setLeftChildNode(null);
+					} else if (parentOfCurrentNode.getRightChildNode().getElement().equals(element)) {
+						parentOfCurrentNode.setRightChildNode(null);
+					}
+
+				}
+
+				// ja currentNode mezglam ir tikai viens bērns
+				// gadījums, kad ir tikai labais bērns
+				else if (currentNode.getLeftChildNode() == null && currentNode.getRightChildNode() != null) {
+					MyNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+					MyNode<Ttype> rightChildOCurrentNode = currentNode.getRightChildNode();
+
+					parentOfCurrentNode.setRightChildNode(rightChildOCurrentNode);
+					rightChildOCurrentNode.setParent(parentOfCurrentNode);
+				}
+				// ir tikai kreisais bērns
+				else if (currentNode.getLeftChildNode() != null && currentNode.getRightChildNode() == null) {
+					MyNode<Ttype> parentOfCurrentNode = currentNode.getParent();
+					MyNode<Ttype> leftChildOCurrentNode = currentNode.getLeftChildNode();
+
+					parentOfCurrentNode.setRightChildNode(leftChildOCurrentNode);
+					leftChildOCurrentNode.setParent(parentOfCurrentNode);
+				}
+				// ja currentNode mezglam ir abi bērni
+				else if (currentNode.getLeftChildNode() != null && currentNode.getRightChildNode() != null) {
+					
+					// Caur labo pusi, meklēs "kreisāko bērnu"
+					MyNode<Ttype> temp = root.getRightChildNode();
+					// ja labajam bērnam nav neviens kreisajā pusē piesaistīts, tad pašu labo bērnu
+					// jāieliek dzēšamajā vietā
+					if (temp.getLeftChildNode() == null) {
+						currentNode.setElement(temp.getElement());
+						currentNode.setRightChildNode(temp.getRightChildNode());
+						temp.getRightChildNode().setParent(currentNode);
+					} else // ja labajam bērnam ir piesaistīts kreisais bērns, tad tiek meklēts arī kreisā
+							// bērna kreisais bērns utt
+					{
+						while (temp.getLeftChildNode() != null) {
+							temp = temp.getLeftChildNode();
+						}
+						// temp2 - būs ar to vērtību, kas ir jāieliek ieks tempNode
+						currentNode.setElement(temp.getElement());
+
+						// var gadīties, ka mezglu, kuru vērtību pārvietos uz dzēšamo mezglu, ir
+						// piesaistīts labais bērns, tad šo labo bērnu vecākma jāuztaisa kā kreiso
+						if (temp.getRightChildNode() != null) {
+							MyNode<Ttype> parent = temp.getParent();
+							MyNode<Ttype> rightCh = temp.getRightChildNode();
+							parent.setLeftChildNode(rightCh);
+							rightCh.setParent(parent);
+						} else // ja mezgls ir kā lapa, tad var uz to vienkārsi noņemt sasaisti no vecāka puses
+						{
+							// noņemam sasaisti vecākam uz to mezglu, kura vērtību uzlika dzēšamajā vietā
+							MyNode<Ttype> parent = temp.getParent();
+							if (parent.getLeftChildNode().equals(temp)) {
+								parent.setLeftChildNode(null);
+							} else if (parent.getRightChildNode().equals(temp)) {
+								parent.setRightChildNode(null);
+							}
+						}
+					}
+					
+				}
+			} else {
+				// ja elements ir lielāks par currentNode elementu
+				if (((Comparable) element).compareTo(currentNode.getElement()) == 1) {
+					// izsaucam rekursiju, tikai tad, ja labajā pusē ir piesiastīts bērns
+					if (currentNode.getRightChildNode() != null) {
+						deleteHelper(element, currentNode.getRightChildNode());
+					}
+				} else if (((Comparable) element).compareTo(currentNode.getElement()) == -1) {
+					// izsaucam rekursiju, tikai tad, ja kreisajā pusē ir piesiastīts bērns
+					if (currentNode.getLeftChildNode() != null) {
+						deleteHelper(element, currentNode.getLeftChildNode());
+					}
+				}
+
+			}
+		}
+		// -----------------------------BEIDZAS PIEVIENOTAIS KODA FRAGMENTS--------------------------
+
 }

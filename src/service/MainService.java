@@ -21,6 +21,13 @@ public class MainService {
 			System.out.println("53? ->" + myBST.search(53));//true
 			System.out.println("100? ->" + myBST.search(100));//false
 			
+			// -----------------------------SĀKAS PIEVIENOTAIS KODA FRAGMENTS--------------------------
+			System.out.println("---------------------------DZĒŠANA------------------");
+			myBST.delete(28);//dzēšam saknes elementu, tā vietā vajadzētu nākt 30
+			myBST.print();
+			
+			// -----------------------------BEIDZAS PIEVIENOTAIS KODA FRAGMENTS--------------------------
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
